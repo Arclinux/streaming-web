@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Ads System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 0;
+      }
+      .video-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 20px;
+      }
+      iframe,
+      video {
+        width: 100%;
+        height: auto;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      .controls {
+        margin: 20px 0;
+      }
+      .controls button {
+        margin: 5px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+      }
+      .controls button:hover {
+        background-color: #0056b3;
+      }
+      .info {
+        margin: 10px 0;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dashboard Arq</h1>
+    <div class="controls">
+      <button id="muteAll">Mute/Unmute Semua</button>
+      <button id="pauseAll">Pause Semua</button>
+      <div class="info" id="locationInfo">Memuat lokasi...</div>
+    </div>
+    <div class="video-grid">
+      <iframe
+        src="https://geo.dailymotion.com/player.html?video=x9c5mci&"
+        allowfullscreen
+        allow="autoplay; fullscreen; picture-in-picture"
+      ></iframe>
+      <iframe
+        src="https://geo.dailymotion.com/player.html?video=x9bzape&"
+        allowfullscreen
+        allow="autoplay; fullscreen; picture-in-picture"
+      ></iframe>
+      <iframe
+        src="https://geo.dailymotion.com/player.html?video=x9bzape&"
+        allowfullscreen
+        allow="autoplay; fullscreen; picture-in-picture"
+      ></iframe>
+    </div>
+    <textarea name="info">
+&lt;&quot;&quot;&gt; yang dibawah menggunakan lazyload</textarea
+    >
+    <div class="video-grid">
+      <iframe
+        class="lazyload"
+        src="https://geo.dailymotion.com/player.html?video=x9c5mci&"
+        controls
+      ></iframe>
+      <iframe
+        class="lazyload"
+        src="https://geo.dailymotion.com/player.html?video=x9c5mci&"
+        controls
+      ></iframe>
+      <iframe
+        class="lazyload"
+        src="https://geo.dailymotion.com/player.html?video=x9c5mci&"
+        controls
+      ></iframe>
+    </div>
+    <script>
+      document.getElementById("muteAll").addEventListener("click", () => {
+        const videos = document.querySelectorAll("video");
+        videos.forEach((video) => (video.muted = !video.muted));
+      });
+
+      document.getElementById("pauseAll").addEventListener("click", () => {
+        const videos = document.querySelectorAll("video");
+        videos.forEach((video) => video.pause());
+      });
+
+      // Fetch user IP (Example)
+      fetch("https://api.ipify.org?format=json")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById(
+            "locationInfo"
+          ).innerText = `IP Anda: ${data.ip}`;
+        })
+        .catch(() => {
+          document.getElementById("locationInfo").innerText =
+            "Tidak dapat memuat lokasi.";
+        });
+    </script>
+  </body>
+</html>
